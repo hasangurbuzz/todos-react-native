@@ -8,6 +8,7 @@ import {FormType} from "../enums/enums.ts";
 import {useEffect, useState} from "react";
 import {BSON} from "realm";
 import ObjectId = BSON.ObjectId;
+import useTodoDatabase from "../hooks/useTodoDatabase.ts";
 
 export interface TodoEditParams {
     id: ObjectId
@@ -18,16 +19,15 @@ const TodoEditScreen = (props: StackScreenProps<Screens.TODO_EDIT>) => {
     const realm = useRealm();
     const id = route.params.id
     const [todo, setTodo] = useState<Todo | null>(null)
+    const {updateTodo} = useTodoDatabase()
 
     useEffect(() => {
         const foundTodo = realm.objectForPrimaryKey(Todo, id)
         setTodo(foundTodo)
     }, []);
 
-    const handleSubmit = (title: string) => {
-        realm.write(() => {
-            todo!.title = title
-        })
+    const handleSubmit = (title: string, detail: string) => {
+        updateTodo(todo!, title, detail)
         navigation.pop()
     }
 

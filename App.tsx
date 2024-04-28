@@ -9,7 +9,7 @@ import Navigation from "./src/navigation/navigation.tsx";
 function App(): React.JSX.Element {
 
     return (
-        <RealmProvider schema={[Todo]} schemaVersion={3}>
+        <RealmProvider schema={[Todo]} schemaVersion={4}>
             <NavigationContainer>
                 <Navigation/>
             </NavigationContainer>
